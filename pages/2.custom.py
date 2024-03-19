@@ -61,12 +61,23 @@ if lat != None and lon != None:
     data_list = make_df(data_kor)
     df = pd.DataFrame(data_list)
     pd.set_option('display.float_format', '{:.2f}'.format)
-    st.dataframe(df, hide_index=True)
+    st.dataframe(df, hide_index=True)   
     make_graph()
+
+    st.session_state['selected_address'] = address
     
    
 else:     
     st.text("데이터를 먼저 로드해주세요.")    
  
     
+
+# 상태 유지를 위해 선택한 주소를 저장
+    
+
+
+# 이전에 선택한 주소가 있다면, 세션 상태에서 가져와 다시 설정
+if 'selected_address' in st.session_state:
+    address = st.session_state['selected_address']    
+    make_graph()
 
