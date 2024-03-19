@@ -68,11 +68,9 @@ if lat != None and lon != None:
     
    
 else:     
-    st.text("데이터를 먼저 로드해주세요.")    
- 
-    
+    st.text("데이터를 먼저 로드해주세요.")       
 
-# 상태 유지를 위해 선택한 주소를 저장
+
     
 
 
