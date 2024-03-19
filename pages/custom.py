@@ -1,5 +1,13 @@
-import streamlit as st
 import requests
+import json
+from dotenv import load_dotenv
+import os
+from utility import * 
+import streamlit as st
+import pandas as pd
+
+lat = None
+lon = None
 
 # Streamlit 앱의 타이틀 설정
 st.title('주소를 위도와 경도로 변환하기 (Nominatim 사용)')
@@ -24,18 +32,41 @@ def geocode_address(address):
     if response.status_code == 200:
         result = response.json()
         if result:
-            location = result[0]
+            location = result[0]            
             return location['lat'], location['lon']
+            
+            
         else:
             return None, None
     else:
         return None, None
 
+
+
 # 변환 버튼
 if st.button('변환하기'):
-    lat, lon = geocode_address(address)
+    lat, lon = geocode_address(address)    
     if lat is not None and lon is not None:
         st.success(f'위도: {lat}, 경도: {lon}')
     else:
         st.error('위도와 경도를 찾을 수 없습니다. 주소를 확인해 주세요.')
+
+
+
+if lat != None and lon != None:
+    call_api(lat,lon)
+    data_kor = read_json('data_kor.json')    
+    st.header("날씨 정보 대시보드")
+    st.info("위도와 경도를 입력해 날씨를 알수 있습니다")
+    data_list = make_df(data_kor)
+    df = pd.DataFrame(data_list)
+    pd.set_option('display.float_format', '{:.2f}'.format)
+    st.dataframe(df, hide_index=True)
+    make_graph()
+    
+   
+else:     
+    st.text("데이터를 먼저 로드해주세요.")    
+ 
+    
 
