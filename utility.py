@@ -9,7 +9,6 @@ import matplotlib.pyplot as plt
 from matplotlib.cm import get_cmap
 import random
 
-
 def call_api(lat,lon):
     load_dotenv()
     weather_api_key = os.getenv("WEATHER_API_KEY1")            
@@ -21,7 +20,6 @@ def call_api(lat,lon):
     trans_kor_time(data)      
     print('완료')
 
-
 def trans_kor_time(data):
     for count in range(len(data['list'])):
         dt_txt = data['list'][count]['dt_txt']    
@@ -29,7 +27,6 @@ def trans_kor_time(data):
         data['list'][count]['kor_time'] = kor_time.strftime('%Y-%m-%d %H:%M:%S')
     with open('data_kor.json', 'w') as file:
         json.dump(data, file)
-
 
 def read_json(filename):
     with open(filename, 'r') as file:                 

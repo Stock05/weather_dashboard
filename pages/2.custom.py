@@ -64,14 +64,9 @@ if lat != None and lon != None:
     st.dataframe(df, hide_index=True)   
     make_graph()
 
-    st.session_state['selected_address'] = address
-    
-   
+    st.session_state['selected_address'] = address   
 else:     
-    st.text("데이터를 먼저 로드해주세요.")       
-
-
-    
+    st.text("데이터를 먼저 로드해주세요.")           
 
 
 # 이전에 선택한 주소가 있다면, 세션 상태에서 가져와 다시 설정
